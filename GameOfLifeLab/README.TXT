@@ -1,4 +1,4 @@
-Introduction
+﻿Introduction
 
 The goal of this lab is to apply your understanding of decision and loop
 	structures to implement a complex algorithm within the context of an
@@ -66,6 +66,13 @@ Artifacts to Produce:
 	like or dislike and why? What was surprising or unexpected? What did you
 	learn? What questions do you still have? What advice would you offer next
 	year's students?
+* Grid Size: 30x20
+* Live cells are filled with black
+* Dead cells are empty
+* Patterns is set in code
+* The game will run until no further progress can be made
+* About 5 ticks
+* Cells will wrap around the screen
 
 
 Submission:
