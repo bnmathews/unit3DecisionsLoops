@@ -19,7 +19,7 @@ public class GameOfLife
     
     // the game board will have 5 rows and 5 columns
     private final int ROWS = 20;
-    private final int COLS = 30;
+    private final int COLS = 29;
     
     // constants for the location of the three cells initially alive
     private final int X1 = 0, Y1 = 2;
@@ -93,6 +93,7 @@ public class GameOfLife
         
         // create the grid, of the specified size, that contains Actors
         Grid<Actor> grid = world.getGrid();
+        
         
         // insert magic here...
         
