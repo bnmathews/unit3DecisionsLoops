@@ -82,25 +82,25 @@ public class GameOfLifeTest
                 Actor cell = game.getActor(row, col);
 
                 // if the cell at the current row and col should be alive, assert that the actor is not null
-                if(     (row == 3 && col == 1) ||
-                        (row == 4 && col == 2) ||
-                        (row == 5 && col == 3) ||
-                        (row == 4 && col == 4) ||
-                        (row == 7 && col == 5) ||
-                        (row == 8 && col == 5) ||
-                        (row == 9 && col == 5) ||
-                        (row == 8 && col == 7) ||
-                        (row == 9 && col == 8) ||
-                        (row == 8 && col == 9) ||
-                        (row == 9 && col == 10) ||
-                        (row == 8 && col == 11) ||
-                        (row == 18 && col == 5) ||
-                        (row == 19 && col == 5) ||
-                        (row == 20 && col == 3) ||
-                        (row == 20 && col == 4) ||
-                        (row == 21 && col == 6) ||
-                        (row == 22 && col == 7) ||
-                        (row == 23 && col == 7))
+                if(     (col == 3 && row == 1) ||
+                        (col == 4 && row == 2) ||
+                        (col == 5 && row == 3) ||
+                        (col == 4 && row == 4) ||
+                        (col == 7 && row == 5) ||
+                        (col == 8 && row == 5) ||
+                        (col == 9 && row == 5) ||
+                        (col == 8 && row == 7) ||
+                        (col == 9 && row == 8) ||
+                        (col == 8 && row == 9) ||
+                        (col == 9 && row == 10) ||
+                        (col == 8 && row == 11) ||
+                        (col == 18 && row == 5) ||
+                        (col == 19 && row == 5) ||
+                        (col == 20 && row == 3) ||
+                        (col == 20 && row == 4) ||
+                        (col == 21 && row == 6) ||
+                        (col == 22 && row == 7) ||
+                        (col == 23 && row == 7))
                 {
                     assertNotNull("expected alive cell at (" + row + ", " + col + ")", cell);
                 }
@@ -154,25 +154,25 @@ public class GameOfLifeTest
                 Actor cell = game.getActor(row, col);
 
                 // if the cell at the current row and col should be alive, assert that the actor is not null
-                if(     (row == 3 && col == 1) ||
-                        (row == 4 && col == 2) ||
-                        (row == 5 && col == 3) ||
-                        (row == 4 && col == 4) ||
-                        (row == 7 && col == 5) ||
-                        (row == 8 && col == 5) ||
-                        (row == 9 && col == 5) ||
-                        (row == 8 && col == 7) ||
-                        (row == 9 && col == 8) ||
-                        (row == 8 && col == 9) ||
-                        (row == 9 && col == 10) ||
-                        (row == 8 && col == 11) ||
-                        (row == 18 && col == 5) ||
-                        (row == 19 && col == 5) ||
-                        (row == 20 && col == 3) ||
-                        (row == 20 && col == 4) ||
-                        (row == 21 && col == 6) ||
-                        (row == 22 && col == 7) ||
-                        (row == 23 && col == 7))
+                if(     (col == 3 && row == 1) ||
+                        (col == 4 && row == 2) ||
+                        (col == 5 && row == 3) ||
+                        (col == 4 && row == 4) ||
+                        (col == 7 && row == 5) ||
+                        (col== 8 && row == 5) ||
+                        (col== 9 && row == 5) ||
+                        (col== 8 && row == 7) ||
+                        (col== 9 && row == 8) ||
+                        (col == 8 && row == 9) ||
+                        (col == 9 && row == 10) ||
+                        (col == 8 && row == 11) ||
+                        (col == 18 && row == 5) ||
+                        (col == 19 && row == 5) ||
+                        (col == 20 && row == 3) ||
+                        (col == 20 && row == 4) ||
+                        (col == 21 && row == 6) ||
+                        (col == 22 && row == 7) ||
+                        (col == 23 && row == 7))
                 {
                     assertNotNull("expected alive cell at (" + row + ", " + col + ")", cell);
                 }
@@ -225,12 +225,12 @@ public class GameOfLifeTest
                 Actor cell = game.getActor(row, col);
 
                 // if the cell at the current row and col should be alive, assert that the actor is not null
-                if(     (row == 8 && col == 8) ||
-                        (row == 8 && col == 8) ||
-                        (row == 7 && col == 9) ||
-                        (row == 10 && col == 9) ||
-                        (row == 8 && col == 10) ||
-                        (row == 9 && col == 10))
+                if(     (col == 8 && row == 8) ||
+                        (col == 8 && row == 8) ||
+                        (col == 7 && row == 9) ||
+                        (col == 10 && row == 9) ||
+                        (col == 8 && row == 10) ||
+                        (col == 9 && row == 10))
                 {
                     assertNotNull("expected alive cell at (" + row + ", " + col + ")", cell);
                 }
@@ -283,34 +283,34 @@ public class GameOfLifeTest
                 Actor cell = game.getActor(row, col);
 
                 // if the cell at the current row and col should be alive, assert that the actor is not null
-                if(     (row == 7 && col == 0) ||
-                        (row == 8 && col == 0) ||
-                        (row == 14 && col == 2) ||
-                        (row == 15 && col == 2) ||
-                        (row == 21 && col == 0) ||
-                        (row == 22 && col == 0) ||
-                        (row == 13 && col == 3) ||
-                        (row == 16 && col == 3) ||
-                        (row == 14 && col == 4) ||
-                        (row == 15 && col == 4) ||
-                        (row == 0 && col == 7) ||
-                        (row == 29 && col == 7) ||
-                        (row == 0 && col == 8) ||
-                        (row == 29 && col == 8) ||
-                        (row == 0 && col == 12) ||
-                        (row == 29 && col == 12) ||
-                        (row == 0 && col == 13) ||
-                        (row == 29 && col == 13) ||
-                        (row == 14 && col == 16) ||
-                        (row == 15 && col == 16) ||
-                        (row == 13 && col == 17) ||
-                        (row == 16 && col == 17) ||
-                        (row == 14 && col == 18) ||
-                        (row == 15 && col == 18) ||
-                        (row == 7 && col == 20) ||
-                        (row == 8 && col == 20) ||
-                        (row == 21 && col == 20) ||
-                        (row == 22 && col == 20))
+                if(     (col == 7 && row == 0) ||
+                        (col == 8 && row == 0) ||
+                        (col == 14 && row == 2) ||
+                        (col == 15 && row == 2) ||
+                        (col == 21 && row == 0) ||
+                        (col == 22 && row == 0) ||
+                        (col == 13 && row == 3) ||
+                        (col == 16 && row == 3) ||
+                        (col == 14 && row == 4) ||
+                        (col == 15 && row == 4) ||
+                        (col == 0 && row == 7) ||
+                        (col == 29 && row == 7) ||
+                        (col == 0 && row == 8) ||
+                        (col == 29 && row == 8) ||
+                        (col == 0 && row == 12) ||
+                        (col == 29 && row == 12) ||
+                        (col == 0 && row == 13) ||
+                        (col == 29 && row == 13) ||
+                        (col == 14 && row == 16) ||
+                        (col == 15 && row == 16) ||
+                        (col == 13 && row == 17) ||
+                        (col == 16 && row == 17) ||
+                        (col == 14 && row == 18) ||
+                        (col == 15 && row == 18) ||
+                        (col == 7 && row == 20) ||
+                        (col == 8 && row == 20) ||
+                        (col == 21 && row == 20) ||
+                        (col == 22 && row == 20))
                 {
                     assertNotNull("expected alive cell at (" + row + ", " + col + ")", cell);
                 }
