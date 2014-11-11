@@ -235,7 +235,7 @@ public class GameOfLife
                         System.out.println("We should remove this one as well...");
                         deaths.add(loc);
                     }
-                    if (grid.getEmptyAdjacentLocations(loc) == null)
+                    else
                     {
                         cellList.add(loc);
                         Rock rock = new Rock();
@@ -302,11 +302,13 @@ public class GameOfLife
     throws InterruptedException
     {
         GameOfLife game = new GameOfLife();
-        for (int i = 0;i<20;i++)
-        {
+        //for (int i = 0;i<20;i++)
+        //{
             game.createNextGeneration();
-            Thread.sleep(100);
-        }
+            //game.createNextGeneration();
+            //game.createNextGeneration();
+            //Thread.sleep(100);
+        //}
     }
 
 }
