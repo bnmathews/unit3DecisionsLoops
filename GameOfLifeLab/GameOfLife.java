@@ -30,6 +30,7 @@ public class GameOfLife
      * 
      */
     public GameOfLife()
+    throws InterruptedException
     {
         // create the grid, of the specified size, that contains Actors
         BoundedGrid<Actor> grid = new BoundedGrid<Actor>(ROWS, COLS);
@@ -44,11 +45,6 @@ public class GameOfLife
         // display the newly constructed and populated world
         world.show();
         
-    }
-    
-    public void Step()
-    {
-        System.out.println("g");
     }
     
     /**
@@ -175,53 +171,6 @@ public class GameOfLife
         world.add(loc19, rock19);
         */
     }
-
-    /**
-     * Checks each cell's boundaries, neighbors, and things like taht.
-     *
-     * @pre        the game has been initialized and the world has been populated with the initial pattern
-     * 
-     */
-    private void checkCells()
-    {
-        Grid<Actor> grid = world.getGrid();
-        
-        ArrayList<Location> occupied = grid.getOccupiedLocations();
-        ArrayList<Location> cellList = new ArrayList<Location>();
-        ArrayList<Location> deaths = new ArrayList<Location>();
-        
-        for (Location loc: occupied)
-        {
-            Actor actor = grid.get(loc);
-            System.out.println("Actor found at: " + loc);
-            System.out.println(grid.getOccupiedAdjacentLocations(loc));
-                        
-            int numNeighbors = grid.getOccupiedAdjacentLocations(loc).size();
-                        
-            System.out.println("Num neighbors: " + numNeighbors);
-            System.out.println("Location: " + loc);
-            if (grid.getEmptyAdjacentLocations(loc) == null)
-            {
-                System.out.println("No neighbor found.");
-                deaths.add(loc);
-            }
-            else if (numNeighbors > 3)
-            {
-                System.out.println("We should remove this one...");
-                deaths.add(loc);
-            }
-            else if (numNeighbors < 2)
-            {
-                System.out.println("We should remove this one as well...");
-                deaths.add(loc);
-            }
-            
-            if (grid.getOccupiedAdjacentLocations(loc).size() == 3) //If there are 3 cells around the current one
-            {
-                cellList.add(loc);
-            }
-        }
-    }
 
     /**
      * Generates the next generation based on the rules of the Game of Life and updates the grid
@@ -232,6 +181,7 @@ public class GameOfLife
      * 
      */
     private void createNextGeneration()
+    throws InterruptedException
     {
         /** You will need to read the documentation for the World, Grid, and Location classes
          *      in order to implement the Game of Life algorithm and leverage the GridWorld framework.
@@ -239,6 +189,11 @@ public class GameOfLife
         
         // create the grid, of the specified size, that contains Actors
         Grid<Actor> grid = world.getGrid();
+        BoundedGrid<Actor> newGrid = new BoundedGrid<Actor>(ROWS,COLS);
+        
+        //ArrayList<Location> occupied = grid.getOccupiedLocations();
+        ArrayList<Location> cellList = new ArrayList<Location>();
+        ArrayList<Location> deaths = new ArrayList<Location>();
         
         Location loc = new Location(0,0);
 
@@ -268,33 +223,39 @@ public class GameOfLife
                     if (grid.getEmptyAdjacentLocations(loc) == null)
                     {
                         System.out.println("No neighbor found.");
-                        actor.removeSelfFromGrid();
+                        deaths.add(loc);
                     }
                     else if (numNeighbors > 3)
                     {
                         System.out.println("We should remove this one...");
-                        actor.removeSelfFromGrid();
+                        deaths.add(loc);
                     }
                     else if (numNeighbors < 2)
                     {
                         System.out.println("We should remove this one as well...");
-                        actor.removeSelfFromGrid();
+                        deaths.add(loc);
+                    }
+                    if (grid.getEmptyAdjacentLocations(loc) == null)
+                    {
+                        cellList.add(loc);
+                        Rock rock = new Rock();
+                        newGrid.put(loc, rock);
                     }
                 }
                 else if (actor == null) //If there is an empty space, look for neighboring cells.
                 {
-                    int numNeighbors = grid.getOccupiedAdjacentLocations(loc).size();
-                    if (numNeighbors == 3)
+                    if (grid.getOccupiedAdjacentLocations(loc).size() == 3) //If there are 3 cells around the current one
                     {
-                        Rock ro = new Rock();
-                        ro.setColor(new Color(255,0,0));
-                        world.add(loc, ro);
+                            cellList.add(loc);
+                            Rock rock = new Rock();
+                            newGrid.put(loc, rock);
                     }
                 }
                 //System.out.println(grid.getNeighbors(loc));
             }
         }
         
+        world.setGrid(newGrid);
     }
     
     /**
@@ -341,9 +302,10 @@ public class GameOfLife
     throws InterruptedException
     {
         GameOfLife game = new GameOfLife();
-        for (int i = 0;i<1;i++)
+        for (int i = 0;i<20;i++)
         {
-            game.checkCells();
+            game.createNextGeneration();
+            Thread.sleep(100);
         }
     }
 

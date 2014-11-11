@@ -42,6 +42,7 @@ public class GameOfLifeTest
 
     @Test
     public void testInitialState()
+    throws InterruptedException
     {
         /* expected pattern for initial state
          *  (X: alive; -: dead)
@@ -114,6 +115,7 @@ public class GameOfLifeTest
     
     @Test
     public void testInitialState2()
+    throws InterruptedException
     {
         /* expected pattern for initial state
          *  (X: alive; -: dead)
@@ -186,6 +188,7 @@ public class GameOfLifeTest
 
     @Test
     public void testFinalState()
+    throws InterruptedException
     {
         /* verify that the actual pattern matches the expected pattern after 3 generations
          *  (X: alive; -: dead)
@@ -244,6 +247,7 @@ public class GameOfLifeTest
     
     @Test
     public void testFinalState2()
+    throws InterruptedException
     {
         /* verify that the actual pattern matches the expected pattern after 3 generations
          *  (X: alive; -: dead)
