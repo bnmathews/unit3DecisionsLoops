@@ -60,22 +60,19 @@ public class GameOfLife
         //  (alive cells contains actors; dead cells do not)
         Grid<Actor> grid = world.getGrid();
     
+        //Use these to make a glider!
+        //int X1 = 3, Y1 = 1;
+        //int X2 = 4, Y2 = 2;
+        //int X3 = 4, Y3 = 3;
+        //int X4 = 3, Y4 = 3;
+        //int X5 = 2, Y5 = 3;
+        
         // locations of the three cells initially alive
-        /*
         int X1 = 3, Y1 = 1;
         int X2 = 4, Y2 = 2;
         int X3 = 5, Y3 = 3;
         int X4 = 4, Y4 = 4;
         int X5 = 7, Y5 = 5;
-        */
-       
-        int X1 = 3, Y1 = 1;
-        int X2 = 4, Y2 = 2;
-        int X3 = 4, Y3 = 3;
-        int X4 = 3, Y4 = 3;
-        int X5 = 2, Y5 = 3;
-       
-        /*
         int X6 = 8, Y6 = 5;
         int X7 = 9, Y7 = 5;
         int X8 = 8, Y8 = 7;
@@ -90,12 +87,10 @@ public class GameOfLife
         int X17 = 21, Y17 = 6;
         int X18 = 22, Y18 = 7;
         int X19 = 23, Y19 = 7;
-        */
         
         // create and add rocks (a type of Actor) to the three intial locations
         Rock rock1 = new Rock();
         Location loc1 = new Location(Y1, X1);
-        //grid.put(loc1, rock1);
         world.add(loc1,rock1);
         
         Rock rock2 = new Rock();
@@ -113,7 +108,7 @@ public class GameOfLife
         Rock rock5 = new Rock();
         Location loc5 = new Location(Y5, X5);
         world.add(loc5, rock5);
-        /*
+        
         Rock rock6 = new Rock();
         Location loc6 = new Location(Y6, X6);
         world.add(loc6, rock6);
@@ -169,7 +164,6 @@ public class GameOfLife
         Rock rock19 = new Rock();
         Location loc19 = new Location(Y19, X19);
         world.add(loc19, rock19);
-        */
     }
 
     /**
@@ -178,7 +172,6 @@ public class GameOfLife
      *
      * @pre     the game has been initialized
      * @post    the world has been populated with a new grid containing the next generation
-     * 
      */
     private void createNextGeneration()
     throws InterruptedException
@@ -190,54 +183,36 @@ public class GameOfLife
         // create the grid, of the specified size, that contains Actors
         Grid<Actor> grid = world.getGrid();
         BoundedGrid<Actor> newGrid = new BoundedGrid<Actor>(ROWS,COLS);
-        
-        //ArrayList<Location> occupied = grid.getOccupiedLocations();
-        ArrayList<Location> cellList = new ArrayList<Location>();
-        ArrayList<Location> deaths = new ArrayList<Location>();
-        
-        Location loc = new Location(0,0);
-
-        System.out.println(grid.getOccupiedLocations());
-        
-        /* do something like ifneighbor() here for each actor found, iterate until all neighbors are accounted
-         * for
-        */
-       
-        //We need to start off fresh, so clear the grid first.
        
         for (int c = 0; c < grid.getNumCols(); c++)
         {
             for (int r = 0; r < grid.getNumRows(); r++)
             {
-                loc = new Location(r,c);
+                Location loc = new Location(r,c);
                 Actor actor = grid.get(loc);
                 //System.out.println(actor);
                 if (actor != null) //If a cell is found...
                 {
-                    System.out.println("Actor found at: " + loc);
-                    System.out.println(grid.getOccupiedAdjacentLocations(loc));
+                    //System.out.println("Actor found at: " + loc);
+                    //System.out.println(grid.getOccupiedAdjacentLocations(loc));
                     
                     int numNeighbors = grid.getOccupiedAdjacentLocations(loc).size();
                     
-                    System.out.println(numNeighbors);
+                    //System.out.println(numNeighbors);
                     if (grid.getEmptyAdjacentLocations(loc) == null)
                     {
-                        System.out.println("No neighbor found.");
-                        deaths.add(loc);
+                        //System.out.println("No neighbor found.");
                     }
                     else if (numNeighbors > 3)
                     {
-                        System.out.println("We should remove this one...");
-                        deaths.add(loc);
+                        //System.out.println("We should remove this one...");
                     }
                     else if (numNeighbors < 2)
                     {
-                        System.out.println("We should remove this one as well...");
-                        deaths.add(loc);
+                        //System.out.println("We should remove this one as well...");
                     }
                     else
                     {
-                        cellList.add(loc);
                         Rock rock = new Rock();
                         newGrid.put(loc, rock);
                     }
@@ -246,7 +221,6 @@ public class GameOfLife
                 {
                     if (grid.getOccupiedAdjacentLocations(loc).size() == 3) //If there are 3 cells around the current one
                     {
-                            cellList.add(loc);
                             Rock rock = new Rock();
                             newGrid.put(loc, rock);
                     }
@@ -256,6 +230,19 @@ public class GameOfLife
         }
         
         world.setGrid(newGrid);
+    }
+    
+    /**
+     * Returns the locations of all the live cells currently on screen.
+     *
+     * @pre     the grid has been created
+     * @return  locations of the live cells on the current grid
+     */
+    public ArrayList<Location> getOccupied()
+    {
+        Grid<Actor> grid = world.getGrid();
+        ArrayList<Location> occupied = grid.getOccupiedLocations();
+        return occupied;
     }
     
     /**
@@ -276,7 +263,7 @@ public class GameOfLife
     /**
      * Returns the number of rows in the game board
      *
-     * @return    the number of rows in the game board
+     * @return   the number of rows in the game board
      */
     public int getNumRows()
     {
@@ -286,7 +273,7 @@ public class GameOfLife
     /**
      * Returns the number of columns in the game board
      *
-     * @return    the number of columns in the game board
+     * @return   the number of columns in the game board
      */
     public int getNumCols()
     {
@@ -302,13 +289,28 @@ public class GameOfLife
     throws InterruptedException
     {
         GameOfLife game = new GameOfLife();
-        //for (int i = 0;i<20;i++)
-        //{
-            game.createNextGeneration();
-            //game.createNextGeneration();
-            //game.createNextGeneration();
-            //Thread.sleep(100);
-        //}
+        
+        boolean doStop = false;
+        
+        int i = 1;
+        
+        //Basically just a while loop, but this is more useful as it makes it easy to get the final generation number
+        for (i = 1;i!=0;i++) 
+        {
+                if (doStop == false)
+                {
+                    String oldOccupied = game.getOccupied().toString();
+                    game.createNextGeneration();
+                    String newOccupied = game.getOccupied().toString();
+                    Thread.sleep(60);
+                    if (oldOccupied.equals(newOccupied))
+                    {
+                        doStop = true;
+                        System.out.println("After " + i + " generations, the game has ended.");
+                    }
+                }
+        }
+        
     }
 
 }
