@@ -66,13 +66,13 @@ Artifacts to Produce:
 	like or dislike and why? What was surprising or unexpected? What did you
 	learn? What questions do you still have? What advice would you offer next
 	year's students?
-* Grid Size: 30x20
+* Grid Size: 21x30 (21 rows, 30 columns)
 * Live cells are filled with black
 * Dead cells are empty
 * Patterns is set in code
 * The game will run until no further progress can be made
-* About 5 ticks
-* Cells will wrap around the screen
+* There are 60 ticks in between generations
+* Cells will not wrap around the screen
 
 
 Submission:
