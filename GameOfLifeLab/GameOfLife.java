@@ -5,6 +5,8 @@ import info.gridworld.grid.Grid;
 import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Location;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Random;
 
 /**
  * "Game of Life" simulation
@@ -37,11 +39,31 @@ public class GameOfLife
         // create a world based on the grid
         world = new ActorWorld(grid);
         
-        // populate the game
-        populateGame();
+        String choice = "";
         
-        // populate the game for the second test variant, use one at a time!!
-        //populateGame2();
+        while (!choice.toUpperCase().equals("A") && !choice.toUpperCase().equals("B") && !choice.toUpperCase().equals("C"))
+        {
+            Scanner s = new Scanner(System.in);
+            System.out.println("Would you like to create:");
+            System.out.println("-Pattern 1? [A]");
+            System.out.println("-Pattern 2? [B]");
+            System.out.println("-Or Make a Random Pattern? [C]");
+            System.out.print(">>");
+            choice = s.next();
+        }
+        
+        if (choice.toUpperCase().equals("A"))
+        {
+            populateGame();
+        }
+        else if (choice.toUpperCase().equals("B"))
+        {
+            populateGame2();
+        }
+        else if (choice.toUpperCase().equals("C"))
+        {
+            randomPopulate();
+        }
         
         // display the newly constructed and populated world
         world.show();
@@ -49,6 +71,41 @@ public class GameOfLife
     }
     
     /**
+     * Creates the actors randomly inserts them into their initial starting positions in the grid
+     *
+     * @pre     the grid has been created
+     * @post    all actors that comprise the initial state of the game have been added to the grid
+     * 
+     */
+    private void randomPopulate()
+    {
+        // the grid of Actors that maintains the state of the game
+        // (alive cells contains actors; dead cells do not)
+        Grid<Actor> grid = world.getGrid();
+        
+        Scanner s = new Scanner(System.in);
+        System.out.print("Starting cells: ");
+        int rocks = s.nextInt();
+    
+        // locations of the cells initially alive
+        Random r = new Random();
+        
+        if (rocks <= 0)
+        {
+            Random r2 = new Random();
+            rocks = r2.nextInt(600);
+        }
+        for (int i  = 0; i <= rocks; i++)
+        {
+            int Y = r.nextInt(20);
+            int X = r.nextInt(30);
+            Rock rock = new Rock();
+            Location loc = new Location(Y, X);
+            world.add(loc,rock);
+        }
+    }
+    
+     /**
      * Creates the actors and inserts them into their initial starting positions in the grid
      *
      * @pre     the grid has been created
