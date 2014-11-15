@@ -12,7 +12,7 @@ import java.util.Random;
  * "Game of Life" simulation
  * 
  * @author @bnmathews
- * @version 11 November 2014
+ * @version 15 November 2014
  */
 public class GameOfLife
 {
@@ -41,17 +41,20 @@ public class GameOfLife
         
         String choice = "";
         
-        while (!choice.toUpperCase().equals("A") && !choice.toUpperCase().equals("B") && !choice.toUpperCase().equals("C"))
+        // lets the user choose what population type they want
+        while (!choice.toUpperCase().equals("A") && !choice.toUpperCase().equals("B") && !choice.toUpperCase().equals("C") && !choice.toUpperCase().equals("D"))
         {
             Scanner s = new Scanner(System.in);
             System.out.println("Would you like to create:");
-            System.out.println("-Pattern 1? [A]");
-            System.out.println("-Pattern 2? [B]");
-            System.out.println("-Or Make a Random Pattern? [C]");
+            System.out.println("Pattern 1? [A]");
+            System.out.println("Pattern 2? [B]");
+            System.out.println("Pattern 3? [C]");
+            System.out.println("Or a random pattern? [D]");
             System.out.print(">>");
             choice = s.next();
         }
         
+        // decides what population generation method to use
         if (choice.toUpperCase().equals("A"))
         {
             populateGame();
@@ -61,6 +64,10 @@ public class GameOfLife
             populateGame2();
         }
         else if (choice.toUpperCase().equals("C"))
+        {
+            populateGame3();
+        }
+        else if (choice.toUpperCase().equals("D"))
         {
             randomPopulate();
         }
@@ -87,7 +94,7 @@ public class GameOfLife
         
         int rockCount = 0;
         
-        while ( (rocks != 0 && rocks > 630) || rocks < 0 )
+        while ( (rocks != 0 && rocks > 630) || rocks < 0 ) // make sure an invalid number isn't entered
         {
             Scanner s = new Scanner(System.in);
             System.out.println("\nPick a number of cells to start with: ");
@@ -97,10 +104,9 @@ public class GameOfLife
             rocks = s.nextInt();
         }
     
-        // locations of the cells initially alive
         Random r = new Random();
         
-        if (rocks <= 0)
+        if (rocks <= 0) // if the user wants to randomly generate a number of cells
         {
             Random r2 = new Random();
             rocks = r2.nextInt(630);
@@ -114,13 +120,13 @@ public class GameOfLife
             int Y = r.nextInt(21);
             int X = r.nextInt(30);
             loc = new Location(Y, X);
-            if (!grid.getOccupiedLocations().contains(loc))
+            if (!grid.getOccupiedLocations().contains(loc)) // check to see if there is not already a cell in the current location
             {
                 Rock rock = new Rock();
                 world.add(loc,rock);
                 rockCount++;
             }
-            else
+            else // if there is a cell in the current location, try again for a new value
             {
                 i--;
             }
@@ -282,6 +288,83 @@ public class GameOfLife
     }
     
     /**
+     * Creates the actors and inserts them into their initial starting positions in the grid, again
+     *
+     * @pre     the grid has been created
+     * @post    all actors that comprise the initial state of the game have been added to the grid
+     * 
+     */
+    private void populateGame3()
+    {
+        // the grid of Actors that maintains the state of the game
+        // (alive cells contains actors; dead cells do not)
+        Grid<Actor> grid = world.getGrid();
+        
+        // locations of the cells initially alive
+        int X1 = 5, Y1 = 7;
+        int X2 = 5, Y2 = 8;
+        int X3 = 4, Y3 = 9;
+        int X4 = 6, Y4 = 9;
+        int X5 = 5, Y5 = 10;
+        int X6 = 5, Y6 = 11;
+        int X7 = 5, Y7 = 12;
+        int X8 = 5, Y8 = 13;
+        int X9 = 4, Y9 = 14;
+        int X10 = 6, Y10 = 14;
+        int X11 = 5, Y11 = 15;
+        int X12 = 5, Y12 = 16;
+        
+        // create and add rocks (a type of Actor) to the three intial locations
+        Rock rock1 = new Rock();
+        Location loc1 = new Location(X1, Y1);
+        world.add(loc1,rock1);
+        
+        Rock rock2 = new Rock();
+        Location loc2 = new Location(X2, Y2);
+        world.add(loc2, rock2);
+        
+        Rock rock3 = new Rock();
+        Location loc3 = new Location(X3, Y3);
+        world.add(loc3, rock3);
+        
+        Rock rock4 = new Rock();
+        Location loc4 = new Location(X4, Y4);
+        world.add(loc4, rock4);
+        
+        Rock rock5 = new Rock();
+        Location loc5 = new Location(X5, Y5);
+        world.add(loc5, rock5);
+        
+        Rock rock6 = new Rock();
+        Location loc6 = new Location(X6, Y6);
+        world.add(loc6, rock6);
+        
+        Rock rock7 = new Rock();
+        Location loc7 = new Location(X7, Y7);
+        world.add(loc7, rock7);
+        
+        Rock rock8 = new Rock();
+        Location loc8 = new Location(X8, Y8);
+        world.add(loc8, rock8);
+        
+        Rock rock9 = new Rock();
+        Location loc9 = new Location(X9, Y9);
+        world.add(loc9, rock9);
+        
+        Rock rock10 = new Rock();
+        Location loc10 = new Location(X10, Y10);
+        world.add(loc10, rock10);
+        
+        Rock rock11 = new Rock();
+        Location loc11 = new Location(X11, Y11);
+        world.add(loc11, rock11);
+        
+        Rock rock12 = new Rock();
+        Location loc12 = new Location(X12, Y12);
+        world.add(loc12, rock12);
+    }
+    
+    /**
      * Generates the next generation based on the rules of the Game of Life and updates the grid
      * associated with the world
      *
@@ -394,6 +477,158 @@ public class GameOfLife
     }
     
     /**
+     * Returns a special response depending on how many generations were created
+     *
+     * @pre      the game has finished running, and has a generation count
+     * @return   a response based on the number of generations
+     */
+    public String getResponse(String generation)
+    {
+        // converts the string input to an interger
+        int gens = Integer.parseInt(generation);
+        
+        Random r = new Random();
+        
+        // so we can choose from 3 responses, gets a value from 0 to 2
+        int respChoice = r.nextInt(3);
+        
+        String response = "";
+        
+        if (gens > 1000) // determines what the response will be depending on the genration number
+        {
+            if (respChoice == 0)
+            {
+                response = "a killer ";
+            }
+            if (respChoice == 1)
+            {
+                response = "a wicked sick ";
+            }
+            if (respChoice == 2)
+            {
+                response = "a staggering ";
+            }
+        }
+        else if (gens > 500)
+        {
+            if (respChoice == 0)
+            {
+                response = "a fantastic ";
+            }
+            if (respChoice == 1)
+            {
+                response = "an excellent ";
+            }
+            if (respChoice == 2)
+            {
+                response = "an awesome ";
+            }
+        }
+        else if (gens > 200)
+        {
+            if (respChoice == 0)
+            {
+                response = "a very nice ";
+            }
+            if (respChoice == 1)
+            {
+                response = "a great ";
+            }
+            if (respChoice == 2)
+            {
+                response = "a very respectable ";
+            }
+        }
+        else if (gens > 100)
+        {
+            if (respChoice == 0)
+            {
+                response = "an above-average ";
+            }
+            if (respChoice == 1)
+            {
+                response = "a pretty good ";
+            }
+            if (respChoice == 2)
+            {
+                response = "an okay ";
+            }
+        }
+        else if (gens > 30)
+        {
+            if (respChoice == 0)
+            {
+                response = "a decent ";
+            }
+            if (respChoice == 1)
+            {
+                response = "a mediocre ";
+            }
+            if (respChoice == 2)
+            {
+                response = "a passable ";
+            }
+        }
+        else if (gens <= 30)
+        {
+            if (respChoice == 0)
+            {
+                response = "a measly ";
+            }
+            if (respChoice == 1)
+            {
+                response = "a dismal ";
+            }
+            if (respChoice == 2)
+            {
+                response = "a terrible ";
+            }
+        }
+        
+        return response;
+    }
+    
+    /**
+     * Returns a type of trophy based on how many generations were created
+     *
+     * @pre      the game has finished running, and has a generation count
+     * @return   a trophy type based on the number of generations
+     */
+    public String getTrophy(String generation)
+    {
+        // converts the string input to an interger
+        int gens = Integer.parseInt(generation);
+        
+        String trophy = "";
+        
+        if (gens > 1000) // determines what the response will be depending on the genration number
+        {
+            trophy = "S";
+        }
+        else if (gens > 500)
+        {
+            trophy = "A";
+        }
+        else if (gens > 200)
+        {
+            trophy = "B";
+        }
+        else if (gens > 100)
+        {
+            trophy = "C";
+        }
+        else if (gens > 40)
+        {
+            trophy = "D";
+        }
+        else if (gens <= 40)
+        {
+            trophy = "F";
+        }
+        return trophy;
+    }
+    
+    /**
      * Creates an instance of this class. Provides convenient execution.
      *
      */
@@ -402,11 +637,20 @@ public class GameOfLife
     {
         GameOfLife game = new GameOfLife();
         
+        // controls if the program finishes or keeps running
         boolean doStop = false;
         
+        // the amount of loops that have occurred
         int loops = 0;
         
-        String oldOccupied_Infinity = "";
+        // the time between a phase of a loop
+        int loopTime = 0; 
+        
+        // lets the program know whether or not a loop check should occur
+        boolean doLoopCheck = false;
+        
+        // the original starting point in a loop
+        String oldOccupied_Infinity = game.getOccupied().toString();
         
         String keepLooping = "";
         
@@ -416,31 +660,52 @@ public class GameOfLife
                 // check the placement of cells on the old (current) grid
                 String oldOccupied = game.getOccupied().toString();
                 
-                if (i % 2 == 0)
-                {
-                    oldOccupied_Infinity = game.getOccupied().toString();
-                }
-                
                 // generate or destroy cells, make a new grid in the process
                 game.createNextGeneration();
                 
                 // check the placement of cells on the fresh grid
                 String newOccupied = game.getOccupied().toString();
                 
-                if (oldOccupied_Infinity.equals(newOccupied))
+                if (loopTime == 0)
                 {
-                    loops++;
-                }
-                else if (oldOccupied.equals(newOccupied))
-                {
-                    loops = 0;
+                    // reset the possible starting point of a new loop
+                    oldOccupied_Infinity = game.getOccupied().toString();
                 }
                 
-                if (loops >= 20 && !keepLooping.toUpperCase().equals("Y"))
+                if (newOccupied.equals(oldOccupied_Infinity) && doLoopCheck == false) // check if there is no loop check going on and a previous position has occured again
+                {
+                    // start looking for a loop, as it looks like one may happen now
+                    doLoopCheck = true;
+                }
+                else if (newOccupied.equals(oldOccupied_Infinity) && doLoopCheck == true) // check if a loop check is happening and the loop closes
+                {
+                    // end the current loop check
+                    doLoopCheck = false;
+                    
+                    // record the loop (must have 2 to clear as an infinite loop for failsafe reasons)
+                    loops++;
+                }
+                
+                if (doLoopCheck == true) // if a loop check is going on, then check how long the loop takes
+                {
+                    loopTime++;
+                }
+                
+                if (loopTime == 20) // at this point if there is no loop going on, set up a new loop check
+                {
+                    // end the current loop check so a new one can happen
+                    doLoopCheck = false;
+                    
+                    // reset the time a new loop may take
+                    loopTime = 0;
+                }
+                
+                if (loops == 2 && !keepLooping.toUpperCase().equals("Y")) // check if the user wants to continue the infinite loop
                 {
                     Scanner s = new Scanner(System.in);
-                    System.out.println("\nEven after " + i + " generations the game will not stabilize!");
-                    System.out.println("This will go on forever if you let it - do you want to continue the loop? [Y/N]");
+                    System.out.println("\nEven after " + game.getResponse(""+i) + i + " generations the game will not stabilize!");
+                    System.out.println("Rank: IN");
+                    System.out.println("\nThis will go on forever if you let it - do you want to continue the loop? [Y/N]");
                     System.out.print(">>");
                     keepLooping = s.next();
                     if (keepLooping.toUpperCase().equals("N"))
@@ -460,7 +725,8 @@ public class GameOfLife
                 if (oldOccupied.equals(newOccupied)) // check to see if there is still room for a new generation
                 {
                     doStop = true;
-                    System.out.println("\nAfter " + i + " generations, the game has ended.");
+                    System.out.println("\nAfter " + game.getResponse(""+i) + i + " generations, the game has ended.");
+                    System.out.println("Rank: " + game.getTrophy(""+i));
                 }
         }
         

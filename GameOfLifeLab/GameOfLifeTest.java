@@ -8,7 +8,7 @@ import info.gridworld.actor.Actor;
  * The test class GameOfLifeTest.
  *
  * @author  @bnmathews
- * @version 11 November 2014
+ * @version 15 November 2014
  */
 public class GameOfLifeTest
 {
@@ -69,6 +69,8 @@ public class GameOfLifeTest
          * 19 - - - - - - - - - -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -    
          * 20 - - - - - - - - - -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   
          */
+        
+        System.out.println("Please select option 'A' for this test to execute properly!\n"); 
         
         GameOfLife game = new GameOfLife();
         final int ROWS = game.getNumRows();
@@ -142,6 +144,8 @@ public class GameOfLifeTest
          * 20 - - - - - - - - - -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   
          */
         
+        System.out.println("Please select option 'B' for this test to execute properly!\n"); 
+        
         GameOfLife game = new GameOfLife();
         final int ROWS = game.getNumRows();
         final int COLS = game.getNumCols();
@@ -200,6 +204,8 @@ public class GameOfLifeTest
          * 20 - - - - - - - - - -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -   
          */
         
+        System.out.println("Please select option 'A' for this test to execute properly!\n"); 
+        
         GameOfLife game = new GameOfLife();
         final int ROWS = game.getNumRows();
         final int COLS = game.getNumCols();
@@ -218,9 +224,6 @@ public class GameOfLifeTest
                 
                 // check the placement of cells on the fresh grid
                 String newOccupied = game.getOccupied().toString();
-                
-                // wait 60 ticks (ms)
-                Thread.sleep(60);
                 
                 if (oldOccupied.equals(newOccupied)) // check to see if there is still room for a new generation
                 {
@@ -285,6 +288,8 @@ public class GameOfLifeTest
          * 20 - - - - - - - - - -  -  -  -  -  -  -  -  -  -  -  X  X  -  -  -  -  -  -  -  - 
          */
         
+        System.out.println("Please select option 'B' for this test to execute properly!\n"); 
+        
         GameOfLife game = new GameOfLife();
         final int ROWS = game.getNumRows();
         final int COLS = game.getNumCols();
@@ -302,9 +307,6 @@ public class GameOfLifeTest
                 
                 // check the placement of cells on the fresh grid
                 String newOccupied = game.getOccupied().toString();
-                
-                // wait 60 ticks (ms)
-                Thread.sleep(60);
                 
                 if (oldOccupied.equals(newOccupied)) // check to see if there is still room for a new generation
                 {
