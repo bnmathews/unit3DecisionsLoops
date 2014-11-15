@@ -83,9 +83,19 @@ public class GameOfLife
         // (alive cells contains actors; dead cells do not)
         Grid<Actor> grid = world.getGrid();
         
-        Scanner s = new Scanner(System.in);
-        System.out.print("Starting cells: ");
-        int rocks = s.nextInt();
+        int rocks = 9001;
+        
+        int rockCount = 0;
+        
+        while ( (rocks != 0 && rocks > 630) || rocks < 0 )
+        {
+            Scanner s = new Scanner(System.in);
+            System.out.println("\nPick a number of cells to start with: ");
+            System.out.println("-Entering '0' will randomly generate a number of cells ");
+            System.out.println("-Only numbers from 0-630 are valid ");
+            System.out.print(">>");
+            rocks = s.nextInt();
+        }
     
         // locations of the cells initially alive
         Random r = new Random();
@@ -93,15 +103,27 @@ public class GameOfLife
         if (rocks <= 0)
         {
             Random r2 = new Random();
-            rocks = r2.nextInt(600);
+            rocks = r2.nextInt(630);
+            System.out.println("\nGenerated " + rocks + " cells!");
         }
-        for (int i  = 0; i <= rocks; i++)
+        
+        Location loc = new Location(0, 0);
+        
+        for (int i = 0; i < rocks; i++)
         {
-            int Y = r.nextInt(20);
+            int Y = r.nextInt(21);
             int X = r.nextInt(30);
-            Rock rock = new Rock();
-            Location loc = new Location(Y, X);
-            world.add(loc,rock);
+            loc = new Location(Y, X);
+            if (!grid.getOccupiedLocations().contains(loc))
+            {
+                Rock rock = new Rock();
+                world.add(loc,rock);
+                rockCount++;
+            }
+            else
+            {
+                i--;
+            }
         }
     }
     
@@ -382,11 +404,22 @@ public class GameOfLife
         
         boolean doStop = false;
         
+        int loops = 0;
+        
+        String oldOccupied_Infinity = "";
+        
+        String keepLooping = "";
+        
         // basically just a while loop, but this is more useful as it makes it easy to get the final generation number
         for (int i = 1;doStop == false;i++) 
         {
                 // check the placement of cells on the old (current) grid
                 String oldOccupied = game.getOccupied().toString();
+                
+                if (i % 2 == 0)
+                {
+                    oldOccupied_Infinity = game.getOccupied().toString();
+                }
                 
                 // generate or destroy cells, make a new grid in the process
                 game.createNextGeneration();
@@ -394,13 +427,40 @@ public class GameOfLife
                 // check the placement of cells on the fresh grid
                 String newOccupied = game.getOccupied().toString();
                 
-                // wait 60 ticks (ms)
-                Thread.sleep(60);
+                if (oldOccupied_Infinity.equals(newOccupied))
+                {
+                    loops++;
+                }
+                else if (oldOccupied.equals(newOccupied))
+                {
+                    loops = 0;
+                }
+                
+                if (loops >= 20 && !keepLooping.toUpperCase().equals("Y"))
+                {
+                    Scanner s = new Scanner(System.in);
+                    System.out.println("\nEven after " + i + " generations the game will not stabilize!");
+                    System.out.println("This will go on forever if you let it - do you want to continue the loop? [Y/N]");
+                    System.out.print(">>");
+                    keepLooping = s.next();
+                    if (keepLooping.toUpperCase().equals("N"))
+                    {
+                        doStop = true;
+                        System.out.println("\nThe game has been stopped.");
+                    }
+                    else
+                    {
+                        System.out.println("\nAlright, it's your funeral.");
+                    }
+                }
+                
+                // wait 80 ticks (ms)
+                Thread.sleep(80);
                 
                 if (oldOccupied.equals(newOccupied)) // check to see if there is still room for a new generation
                 {
                     doStop = true;
-                    System.out.println("After " + i + " generations, the game has ended.");
+                    System.out.println("\nAfter " + i + " generations, the game has ended.");
                 }
         }
         

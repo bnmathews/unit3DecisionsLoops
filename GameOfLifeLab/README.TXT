@@ -69,9 +69,9 @@ Artifacts to Produce:
 * Grid Size: 21x30 (21 rows, 30 columns)
 * Live cells are filled with black
 * Dead cells are empty
-* Patterns is set in code
+* User can choose between two set patterns, or to create a random first generation
 * The game will run until no further progress can be made
-* There are 60 ticks in between generations
+* There are 80 ticks in between generations
 * Cells will not wrap around the screen
 
 
