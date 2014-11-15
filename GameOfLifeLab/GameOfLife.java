@@ -524,7 +524,7 @@ public class GameOfLife
                 response = "an awesome ";
             }
         }
-        else if (gens > 200)
+        else if (gens > 300)
         {
             if (respChoice == 0)
             {
@@ -601,29 +601,29 @@ public class GameOfLife
         
         String trophy = "";
         
-        if (gens > 1000) // determines what the response will be depending on the genration number
+        if (gens > 1000) // determines what the trohpy / rank will be depending on the genration number
         {
-            trophy = "S";
+            trophy = "PURE PLATINUM";
         }
         else if (gens > 500)
         {
-            trophy = "A";
+            trophy = "PLATINUM";
         }
-        else if (gens > 200)
+        else if (gens > 300)
         {
-            trophy = "B";
+            trophy = "GOLD";
         }
         else if (gens > 100)
         {
-            trophy = "C";
+            trophy = "SILVER";
         }
         else if (gens > 40)
         {
-            trophy = "D";
+            trophy = "BRONZE";
         }
         else if (gens <= 40)
         {
-            trophy = "F";
+            trophy = "STONE";
         }
         return trophy;
     }
@@ -704,7 +704,7 @@ public class GameOfLife
                 {
                     Scanner s = new Scanner(System.in);
                     System.out.println("\nEven after " + game.getResponse(""+i) + i + " generations the game will not stabilize!");
-                    System.out.println("Rank: IN");
+                    System.out.println("Rank: " + game.getTrophy(""+i));
                     System.out.println("\nThis will go on forever if you let it - do you want to continue the loop? [Y/N]");
                     System.out.print(">>");
                     keepLooping = s.next();
@@ -729,7 +729,5 @@ public class GameOfLife
                     System.out.println("Rank: " + game.getTrophy(""+i));
                 }
         }
-        
     }
-
 }
